@@ -12,7 +12,10 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
 <!-- Material Design Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.css"/>
+
 <link href="style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
 </head>
 <body>
 <nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
@@ -40,6 +43,97 @@
     </ul>
   </div>
 </nav>
+<main class="container">
+  <h1 class="mt-5 text-center text-primary">Upload Malware Sample</h1>
+  <br />
+  <form enctype="multipart/form-data" action="" method="post" name="upload">
+    <div class="form-group required row mt-3">
+      <label for="file_upload" class="col-sm-3 col-form-label">SHA256 hash</label>
+      <div class="col-sm-9">
+        <div class="custom-file">
+        <input type="text" class="form-control" id="file_upload" name="file_upload" placeholder="sha256 hash">
+      </div>
+      </div>
+    </div>
+    <!-- Tags -->
+    <div class="form-group row">
+      <label for="tags" class="col-sm-3 col-form-label">Tags</label>
+      <div class="col-sm-9">
+       <input type="text" data-role="tagsinput" id="tags" name="tags" class="form-control" placeholder="tag">
+      </div>
+    </div>
+    <input type="hidden" id="rowcnt_ref" name="rowcnt_ref" value="1" />
+    <div class="form-group row">
+      <label for="reference_type-1" class="col-sm-3 col-form-label">Reference</label>
+      <div class="col-sm-2">
+        <select class="form-control form-control-sm" id="reference_type-1" name="reference_type-1">
+          <option = "" selected disabled hidden>Choose...</option>
+          <option>URLhaus</option>
+          <option>ANY.RUN</option>
+          <option>JoeSandbox</option>
+          <option>Cape</option>
+          <option>Malpedia</option>
+          <option>Twitter</option>
+          <option>Link</option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" id="reference_text-1" name="reference_text-1" placeholder="link (e.g. https://something.tld/bla.php)">
+      </div>
+      <div class="col-sm-1">
+          <div id="btn-references-1"><button id="ref1" class="btn btn-outline-success btn-rounded waves-effect add-more" type="button" onclick="addrow_ref(this.id, 'references')"><i class="fas fa-plus fa-xs"></i></button></div>
+      </div>
+    </div>
+    <div id="references">
+    </div>
+    <input type="hidden" id="rowcnt_con" name="rowcnt_con" value="1" />
+    <div class="form-group row">
+      <label for="context_type-1" class="col-sm-3 col-form-label">Context</label>
+      <div class="col-sm-2">
+        <select class="form-control form-control-sm" id="context_type-1" name="context_type-1">
+          <option ="" selected disabled hidden>Choose...</option>
+          <option>Dropping (MD5)</option>
+          <option>Dropping (SHA256)</option>
+          <option>Dropping (malware family)</option>
+          <option>Dropped by (MD5)</option>
+          <option>Dropped by (SHA256)</option>
+          <option>Dropped by (malware family)</option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" id="context_text-1" name="context_text-1" placeholder="EvilMalware">
+      </div>
+      <div class="col-sm-1">
+          <div id="btn-contexts-1"><button id="con1" class="btn btn-outline-success btn-rounded waves-effect add-more" type="button" onclick="addrow_con(this.id, 'contexts')"><i class="fas fa-plus fa-xs"></i></button></div>
+      </div>
+    </div>
+    <div id="contexts">
+    </div>
+    <div class="form-group row">
+      <label for="context_type-1" class="col-sm-3 col-form-label">Delivery method</label>
+      <div class="col-sm-9">
+        <select class="form-control form-control-sm" id="delivery" name="delivery">
+          <option ="" selected disabled hidden>Choose...</option>
+          <option>Distributed via e-mail attachment</option>
+          <option>Distributed via e-mail link</option>
+          <option>Distributed via web download</option>
+          <option>Distributed via drive-by</option>
+          <option>Multiple</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="is_pentester" class="col-sm-3 col-form-label">Comment</label>
+      <div class="col-sm-9">
+        <textarea class="form-control" name="comment" id="comment" rows="6"></textarea>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="button" class="btn  btn-outline-primary btn-rounded waves-effect mb-2">Upload</button>
+    </div>
+  </form>
+</main>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -47,6 +141,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>    
+<script type="text/javascript" src="index.js"></script>    
 
 </body>
 </html>
